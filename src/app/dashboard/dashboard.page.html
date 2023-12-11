@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>  <p> welcome back <br>
+      {{activeUser}}
+    </p></ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="open-modal" expand="block">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+  <p>{{ message }}</p>
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>add product</ion-title>
+         
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form (ngSubmit)="submitProduct()">
+          <ion-list>
+      
+            <ion-item>
+              <ion-label position="stacked">Product Name</ion-label>
+              <ion-input type="text" placeholder="Enter the product name" [(ngModel)]="product.name" name="productName" required></ion-input>
+            </ion-item>
+      
+            <ion-item>
+              <ion-label position="stacked">Product Price</ion-label>
+              <ion-input type="number" placeholder="Enter the product price" [(ngModel)]="product.price" name="productPrice" required></ion-input>
+            </ion-item>
+      
+            <ion-item>
+              <ion-label position="stacked">Product Description</ion-label>
+              <ion-textarea placeholder="Enter a brief description of the product" [(ngModel)]="product.description" name="productDescription"></ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Category</ion-label>
+              <ion-select placeholder="Select one" interface="popover" [(ngModel)]="product.category" name="productCategory" required>
+                <ion-select-option value="sell">Sell</ion-select-option>
+                <ion-select-option value="rent">Rent</ion-select-option>
+              </ion-select>
+            </ion-item>
+      
+            <ion-item>
+              <ion-label position="stacked">Product Image</ion-label>
+              <input type="file" (change)="onFileChange($event)" required />
+            </ion-item>
+      
+      
+          </ion-list>
+          <ion-button type="submit" expand="block">Add Product</ion-button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
