@@ -43,5 +43,8 @@ export class AuthService {
   currentUser(){
     return this.auth.currentUser.email
   }
+  currentId(){
+    return this.auth.currentUser.uid
+  }
  
 }

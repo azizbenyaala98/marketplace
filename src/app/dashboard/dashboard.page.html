@@ -35,7 +35,7 @@
       
             <ion-item>
               <ion-label position="stacked">Product Name</ion-label>
-              <ion-input type="text" placeholder="Enter the product name" [(ngModel)]="product.name" name="productName" required></ion-input>
+              <ion-input type="text" placeholder="Enter the product name" [(ngModel)]="product.title" name="productName" required></ion-input>
             </ion-item>
       
             <ion-item>
@@ -57,7 +57,7 @@
       
             <ion-item>
               <ion-label position="stacked">Product Image</ion-label>
-              <input type="file" (change)="onFileChange($event)" required />
+              <input name="productImage" [(ngModel)]="product.imageUrl"  type="file" (change)="onFileChange($event)" required />
             </ion-item>
       
       

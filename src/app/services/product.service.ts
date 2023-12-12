@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { addDoc, collection, Firestore,collectionData } from '@angular/fire/firestore';
 
 import { Product, ProductCategory } from '../models/product';
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  constructor(private firestore :Firestore){}
+  
+  constructor(private firestore :Firestore,
+    private auth :AuthService){}
   addProduct(product:Product){
+    product.userId=this.auth.currentId()
     const collectionInstance= collection(this.firestore,'products');
     addDoc(collectionInstance,product
     

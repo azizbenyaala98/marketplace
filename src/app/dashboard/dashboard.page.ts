@@ -1,3 +1,5 @@
+
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ProductService } from '../services/product.service';
@@ -5,6 +7,7 @@ import { Component,OnInit, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ProductCategory } from '../models/product';
+import { User } from '@angular/fire/auth';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -13,18 +16,26 @@ import { ProductCategory } from '../models/product';
 
 
 export class DashboardPage implements OnInit {
+  
+  constructor(private auth:AuthService,
+    private router :Router,
+    private route: ActivatedRoute,
+   private productService:ProductService
+   ) { }
+   
   productImage: any;
-  product = {
-    name: '',
+ product = {
+    title: '',
     price: 0,
     description: '',
     category:ProductCategory.Sell,
-    imageUrl:'',
-    
+    imageUrl:''
   };
   submitProduct() {
     // Handle submitting the product data here
+    
     console.log('Product data:', this.product);
+    this.productService.addProduct(this.product)
   }
 
   @ViewChild(IonModal) modal: IonModal;
@@ -49,18 +60,13 @@ export class DashboardPage implements OnInit {
   }
 
   activeUser=this.sub(this.auth.currentUser())
-  userId= this.route.snapshot.paramMap.get('id');;
+  userId=this.auth.currentId()
 ngOnInit(){
   console.log(this.activeUser)
   console.log(this.userId)
     
 }
-  constructor(private auth:AuthService,
-    private router :Router,
-    private route: ActivatedRoute,
-   private productService:ProductService
-   ) { }
-   
+  
 
  
 
