@@ -6,8 +6,9 @@ import { ProductService } from '../services/product.service';
 import { Component,OnInit, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { ProductCategory } from '../models/product';
+import { Product, ProductCategory } from '../models/product';
 import { User } from '@angular/fire/auth';
+import { filter, Subscription } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -16,6 +17,9 @@ import { User } from '@angular/fire/auth';
 
 
 export class DashboardPage implements OnInit {
+  productList: Product[];
+  productListSubscription: Subscription;
+
   
   constructor(private auth:AuthService,
     private router :Router,
@@ -37,6 +41,8 @@ export class DashboardPage implements OnInit {
     console.log('Product data:', this.product);
     this.productService.addProduct(this.product)
   }
+
+
 
   @ViewChild(IonModal) modal: IonModal;
 
@@ -64,6 +70,12 @@ export class DashboardPage implements OnInit {
 ngOnInit(){
   console.log(this.activeUser)
   console.log(this.userId)
+  
+  this.productListSubscription = this.productService.getProductsByActiveUser()
+
+  .subscribe((products: Product[]) => {
+    this.productList = products;
+  });
     
 }
   

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, Firestore,collectionData } from '@angular/fire/firestore';
+import { addDoc, collection, Firestore,collectionData, query, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 import { Product, ProductCategory } from '../models/product';
@@ -27,6 +27,12 @@ export class ProductService {
     return collectionData(collectionInstance) as Observable<Product[]>;
   }
 
+  getProductsByActiveUser(): Observable<Product[]> {
+    
+    const collectionInstance = collection(this.firestore, 'products');
+    const userProductsQuery = query(collectionInstance, where('userId', '==', this.auth.currentId()));
+    return collectionData(userProductsQuery) as Observable<Product[]>;
+  }
 
 
     

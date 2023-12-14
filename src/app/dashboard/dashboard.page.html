@@ -17,7 +17,38 @@
 </ion-header>
 <ion-content class="ion-padding">
 
-  <p>{{ message }}</p>
+ <p>{{ message }}</p>
+
+ <ion-content class="ion-padding">
+  <ion-card *ngFor="let product of productList">
+    <img [src]="product.imageUrl" alt="{{product.title}}"/>
+    <ion-card-header>
+      <ion-card-title>{{product.title}}</ion-card-title>
+      <ion-card-subtitle>{{product.category}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{product.description}}
+    </ion-card-content>
+    <div class="ion-margin-vertical">
+      <ion-button color="primary" fill="outline">53303470 <ion-icon name="call-outline" slot="start"></ion-icon></ion-button>
+      <ion-label fill="outline">
+        <ion-icon slot="end"></ion-icon> {{product.price}} <strong>$</strong>
+      </ion-label>
+    </div>
+  </ion-card>
+</ion-content>
+
+
+
+
+
+
+
+
+ 
+
+
+  <!-- this is add page -->
   <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>
