@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, Firestore,collectionData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 import { Product, ProductCategory } from '../models/product';
 import { AuthService } from './auth.service';
@@ -21,18 +22,17 @@ export class ProductService {
       console.log(err)
         })
   }
-  getProducts(){
-    const collectionInstance= collection(this.firestore,'products');
-    collectionData(collectionInstance).subscribe(val =>{
-      console.log(val)
-    })
+  getProducts(): Observable<Product[]> {
+    const collectionInstance = collection(this.firestore, 'products');
+    return collectionData(collectionInstance) as Observable<Product[]>;
+  }
 
 
 
     
 
   }
-}
+
  
 
    

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -9,11 +11,16 @@ import { ProductService } from '../services/product.service';
 })
 export class ShopPage implements OnInit {
 
-    ngOnInit() {
-      this.productService.getProducts()
-     
-        
-    }
+  productList: Product[];
+  productListSubscription: Subscription;
+
+
+  ngOnInit() {
+    this.productListSubscription = this.productService.getProducts().subscribe((products: Product[]) => {
+      this.productList = products;
+    });
+  }
+
   constructor(private router: Router,
     private productService :ProductService) {}
 
