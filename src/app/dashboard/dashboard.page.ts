@@ -9,6 +9,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { Product, ProductCategory } from '../models/product';
 import { User } from '@angular/fire/auth';
 import { filter, Subscription } from 'rxjs';
+import { deleteDoc, doc, Firestore } from '@angular/fire/firestore';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -17,6 +18,26 @@ import { filter, Subscription } from 'rxjs';
 
 
 export class DashboardPage implements OnInit {
+
+
+  ngOnInit(){
+    console.log(this.activeUser)
+    console.log(this.userId)
+    
+    this.productListSubscription = this.productService.getProductsByActiveUser().subscribe((products: Product[]) => {
+    // Ensure that each product has an 'id' property before assigning to productList
+    this.productList = products.map(product => {
+      if (product.id) {
+        return product;
+      } else {
+        // Handle the case where the product doesn't have an 'id'
+        console.error("Product is missing an 'id':", product);
+        return null;
+      }
+    }).filter(Boolean); // Remove null entries from the array
+  });
+      
+  }
   productList: Product[];
   productListSubscription: Subscription;
 
@@ -24,11 +45,13 @@ export class DashboardPage implements OnInit {
   constructor(private auth:AuthService,
     private router :Router,
     private route: ActivatedRoute,
-   private productService:ProductService
+   private productService:ProductService,
+   private firestore:Firestore
    ) { }
    
   productImage: any;
  product = {
+  
     title: '',
     price: 0,
     description: '',
@@ -67,21 +90,8 @@ export class DashboardPage implements OnInit {
 
   activeUser=this.sub(this.auth.currentUser())
   userId=this.auth.currentId()
-ngOnInit(){
-  console.log(this.activeUser)
-  console.log(this.userId)
+
   
-  this.productListSubscription = this.productService.getProductsByActiveUser()
-
-  .subscribe((products: Product[]) => {
-    this.productList = products;
-  });
-    
-}
-  
-
- 
-
   logout(){
     this.auth.signout()
     this.router.navigateByUrl('/login')
@@ -90,25 +100,30 @@ ngOnInit(){
   toAddProduct(){
     
   }
-  /*ToAddProduct(){
-    const collectionInstance= collection(this.firestore,'products');
-    addDoc(collectionInstance, {
-      title: 'Example Product',
-      category: ProductCategory.Sell, // Use the enum value here
-      price: 100,
-      description: 'This is a sample product description',
-      imageUrl: 'https://example.com/product_image.jpg'
-    }
-    ).then(()=>{
-      console.log("saved data succesfully")
-    }).catch((err)=>{
-      console.log(err)
+
+  editProduct(id:string){console.log(id)}
+ 
+
+  deleteProduct(id: string) {
+    if (id) {
+      const docRef = doc(this.firestore, 'products', id);
+  
+      deleteDoc(docRef)
+        .then(() => {
+          console.log("Document successfully deleted!");
+          // Optionally, you may want to update your local product list after deletion
+          this.productList = this.productList.filter(product => product.id !== id);
         })
+        .catch((error) => {
+          console.error("Error removing document: ", error);
+        });
+    } else {
+      console.error("Invalid ID provided for deletion");
+    }
+  }
 
 
 
-   
-  }*/
   sub(input: string): string {
     const atIndex = input.indexOf('@');
   
