@@ -5,9 +5,12 @@
         <ion-icon name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>  <p> welcome back <br>
-      {{activeUser}}
-    </p></ion-title>
+    <ion-title>
+      <p>
+        welcome back <br />
+        {{activeUser}}
+      </p></ion-title
+    >
     <ion-buttons slot="end">
       <ion-button id="open-modal" expand="block">
         <ion-icon name="add"></ion-icon>
@@ -16,43 +19,43 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
+  <ion-content class="ion-padding">
+    <ion-card *ngFor="let product of productList">
+      <div color="secondary" class="edit-delete-bar">
+        <ion-button
+          fill="clear"
+          class="edit-button"
+          (click)="editProduct(product.id)"
+        >
+          <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+        </ion-button>
+        <ion-button
+          color="danger"
+          fill="clear"
+          class="delete-button"
+          (click)="deleteProduct(product.id)"
+        >
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-button>
+      </div>
 
- <p>{{ message }}</p>
-
- <ion-content class="ion-padding">
-  <ion-card *ngFor="let product of productList">
-    <div color="secondary" class="edit-delete-bar">
-      <ion-button fill="clear" class="edit-button" (click)="editProduct(product.id)">
-        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
-      </ion-button>
-      <ion-button color="danger" fill="clear" class="delete-button" (click)="deleteProduct(product.id)">
-        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-      </ion-button>
-    </div>
-
-    <img [src]="product.imageUrl" alt="{{product.title}}" />
-    <ion-card-header>
-      <ion-card-title>{{product.title}}</ion-card-title>
-      <ion-card-subtitle>{{product.category}}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      {{product.description}}
-    </ion-card-content>
-    <div class="ion-margin-vertical">
-      <ion-button color="primary" fill="outline">
-        {{product.id}} <ion-icon name="call-outline" slot="start"></ion-icon>
-      </ion-button>
-      <ion-label fill="outline">
-        <ion-icon slot="end"></ion-icon>{{product.price}} <strong>$</strong>
-      </ion-label>
-    </div>
-  </ion-card>
-</ion-content>
-
-
-
- 
-
+      <img [src]="product.imageUrl" alt="{{product.title}}" />
+      <ion-card-header>
+        <ion-card-title>{{product.title}}</ion-card-title>
+        <ion-card-subtitle>{{product.category}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content> {{product.description}} </ion-card-content>
+      <div class="ion-margin-vertical">
+        <ion-button color="primary" fill="outline">
+          {{product.phone}}
+          <ion-icon name="call-outline" slot="start"></ion-icon>
+        </ion-button>
+        <ion-label fill="outline">
+          <ion-icon slot="end"></ion-icon>{{product.price}} <strong>$</strong>
+        </ion-label>
+      </div>
+    </ion-card>
+  </ion-content>
 
   <!-- this is add page -->
   <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
@@ -63,41 +66,76 @@
             <ion-button (click)="cancel()">Cancel</ion-button>
           </ion-buttons>
           <ion-title>add product</ion-title>
-         
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
         <form (ngSubmit)="submitProduct()">
           <ion-list>
-      
             <ion-item>
               <ion-label position="stacked">Product Name</ion-label>
-              <ion-input type="text" placeholder="Enter the product name" [(ngModel)]="product.title" name="productName" required></ion-input>
+              <ion-input
+                type="text"
+                placeholder="Enter the product name"
+                [(ngModel)]="product.title"
+                name="productName"
+                required
+              ></ion-input>
             </ion-item>
-      
+
             <ion-item>
               <ion-label position="stacked">Product Price</ion-label>
-              <ion-input type="number" placeholder="Enter the product price" [(ngModel)]="product.price" name="productPrice" required></ion-input>
+              <ion-input
+                type="number"
+                placeholder="Enter the product price"
+                [(ngModel)]="product.price"
+                name="productPrice"
+                required
+              ></ion-input>
             </ion-item>
-      
+
+            <ion-item>
+              <ion-label position="stacked">Phone</ion-label>
+              <ion-input
+                type="number"
+                placeholder="Enter the product Phone"
+                [(ngModel)]="product.phone"
+                name="productPhone"
+                required
+              ></ion-input>
+            </ion-item>
+
             <ion-item>
               <ion-label position="stacked">Product Description</ion-label>
-              <ion-textarea placeholder="Enter a brief description of the product" [(ngModel)]="product.description" name="productDescription"></ion-textarea>
+              <ion-textarea
+                placeholder="Enter a brief description of the product"
+                [(ngModel)]="product.description"
+                name="productDescription"
+              ></ion-textarea>
             </ion-item>
             <ion-item>
               <ion-label position="stacked">Category</ion-label>
-              <ion-select placeholder="Select one" interface="popover" [(ngModel)]="product.category" name="productCategory" required>
+              <ion-select
+                placeholder="Select one"
+                interface="popover"
+                [(ngModel)]="product.category"
+                name="productCategory"
+                required
+              >
                 <ion-select-option value="sell">Sell</ion-select-option>
                 <ion-select-option value="rent">Rent</ion-select-option>
               </ion-select>
             </ion-item>
-      
+
             <ion-item>
               <ion-label position="stacked">Product Image</ion-label>
-              <input name="productImage" [(ngModel)]="product.imageUrl"  type="file" (change)="onFileChange($event)" required />
+              <input
+                name="productImage"
+                [(ngModel)]="product.imageUrl"
+                type="file"
+                (change)="uploadFile($event)"
+                required
+              />
             </ion-item>
-      
-      
           </ion-list>
           <ion-button type="submit" expand="block">Add Product</ion-button>
         </form>
