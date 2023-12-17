@@ -1,24 +1,61 @@
 <ion-content class="ion-padding">
+  <ion-header>
+    <ion-toolbar>
+      <ion-button (click)="navigate()" slot="end"> Cancel </ion-button>
+    </ion-toolbar>
+  </ion-header>
   <form (ngSubmit)="EditProduct()">
     <ion-list>
-
       <ion-item>
         <ion-label position="stacked">Product Name</ion-label>
-        <ion-input type="text" placeholder="Enter the product name" [(ngModel)]="product.title" name="productName" required></ion-input>
+        <ion-input
+          type="text"
+          placeholder="Enter the product name"
+          [(ngModel)]="product.title"
+          name="productName"
+          required
+        ></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Product Price</ion-label>
-        <ion-input type="number" placeholder="Enter the product price" [(ngModel)]="product.price" name="productPrice" required></ion-input>
+        <ion-input
+          type="number"
+          placeholder="Enter the product price"
+          [(ngModel)]="product.price"
+          name="productPrice"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Phone</ion-label>
+        <ion-input
+          type="number"
+          placeholder="Enter the product Phone"
+          [(ngModel)]="product.phone"
+          name="productPhone"
+          required
+        ></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Product Description</ion-label>
-        <ion-textarea placeholder="Enter a brief description of the product" [(ngModel)]="product.description" name="productDescription"></ion-textarea>
+        <ion-textarea
+          placeholder="Enter a brief description of the product"
+          [(ngModel)]="product.description"
+          name="productDescription"
+        ></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Category</ion-label>
-        <ion-select placeholder="Select one" interface="popover" [(ngModel)]="product.category" name="productCategory" required>
+        <ion-select
+          placeholder="Select one"
+          interface="popover"
+          [(ngModel)]="product.category"
+          name="productCategory"
+          required
+        >
           <ion-select-option value="sell">Sell</ion-select-option>
           <ion-select-option value="rent">Rent</ion-select-option>
         </ion-select>
@@ -26,11 +63,15 @@
 
       <ion-item>
         <ion-label position="stacked">Product Image</ion-label>
-        <input name="productImage" [(ngModel)]="product.imageUrl"  type="file" (change)="onFileChange($event)" required />
+        <input
+          name="productImage"
+          [(ngModel)]="product.imageUrl"
+          type="file"
+          (change)="uploadFile($event)"
+          required
+        />
       </ion-item>
-
-
     </ion-list>
-    <ion-button type="submit" expand="block">Add Product</ion-button>
+    <ion-button type="submit" expand="block">Edit Product</ion-button>
   </form>
 </ion-content>
