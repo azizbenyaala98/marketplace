@@ -1,0 +1,46 @@
+# Marketplace
+
+This is an Angular Ionic project for a marketplace that uses npm as a package manager, Firebase for backend services, and is written in TypeScript.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites:
+
+- Node.js and npm installed on your machine
+- Angular CLI installed globally (`npm install -g @angular/cli`)
+- Ionic CLI installed globally (`npm install -g @ionic/cli`)
+
+## Installing:
+
+Clone the repository: `git clone https://github.com/azizbenyaala98/marketplace`
+Navigate into the project directory: `cd marketplace`
+Install the dependencies: `npm install`
+
+## Running the Application:
+
+Run `ionic serve` for a dev server.
+Navigate to `http://localhost:8100/`. The app will automatically reload if you change any of the source files.
+
+## Running the Tests:
+
+Run `ng test` to execute the unit tests via Karma.
+
+## Building the Project:
+
+Run ionic build to build the project. The build artifacts will be stored in the www/ directory. Use the --prod flag for a production build.
+
+## Technologies Used
+
+- Angular: The web framework used
+- Ionic: The mobile app framework used
+- npm: Dependency Management
+- TypeScript: Used for static typing
+- Firebase: Used for backend services
+
+## Authors
+
+- Aziz ben yaala
+- Fakhir jouini
+- Baha eddine chammakhi
