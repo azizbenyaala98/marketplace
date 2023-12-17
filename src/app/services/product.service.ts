@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, Firestore,collectionData, query, where, doc,deleteDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { addDoc, collection, Firestore,collectionData, query, where, doc,deleteDoc,updateDoc, getDoc } from '@angular/fire/firestore';
+import { map, Observable } from 'rxjs';
 
 import { Product, ProductCategory } from '../models/product';
 import { AuthService } from './auth.service';
@@ -8,6 +8,8 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ProductService {
+  private collectionName = 'products';
+
   
   constructor(private firestore :Firestore,
     private auth :AuthService){}
@@ -58,6 +60,15 @@ export class ProductService {
     console.error("Invalid ID provided for deletion");
   }
 }
+
+updateProduct(product: Product): Promise<void> {
+  const { id, ...productData } = product;
+  const productDocRef = doc(this.firestore, this.collectionName, id);
+  return updateDoc(productDocRef, productData);
+}
+  
+
+
 
 }
 

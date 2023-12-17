@@ -101,7 +101,9 @@ export class DashboardPage implements OnInit {
     
   }
 
-  editProduct(id:string){console.log(id)}
+  editProduct(id:string){console.log(id)
+  this.router.navigateByUrl(`/edit-product/${id}`)
+  }
  
 
   deleteProduct(id: string) {
