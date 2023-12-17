@@ -1,50 +1,66 @@
 <ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar>
+      <ion-button (click)="navigate()" slot="end"> Shop now </ion-button>
+    </ion-toolbar>
+  </ion-header>
   <div class="header">
-  <ion-label class="title">Welcome Back</ion-label>
-  <p class="subTitle">Sign in to access your account</p>
+    <ion-label class="title">Welcome Back</ion-label>
+    <p class="subTitle">Sign in to access your account</p>
   </div>
-  <form [formGroup]="loginForm" >
-  <div class="ion-padding">
-  <ion-item>
-  <ion-input formControlName="email" placeholder="email"></ion-input>
-  <ion-icon name="person-outline"></ion-icon>
-  </ion-item>
-  <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" >
-    <ion-text *ngIf="loginForm.get('email')?.hasError('required')">
-      email is required
-    </ion-text>
-    <ion-text *ngIf="loginForm.get('email')?.hasError('pattern')">
-      email should be valid    </ion-text>
-  </div>
-  <ion-item>
-  <ion-input formControlName="password" placeholder="password"></ion-input>
-  <ion-icon name="lock-closed-outline"></ion-icon> </ion-item>
-  <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" >
-    <ion-text *ngIf="loginForm.get('password')?.hasError('required')">
-      password is required
-    </ion-text>
-    <ion-text *ngIf="loginForm.get('password')?.hasError('pattern')">
-      password must at least have 
-    one Character
-    one capital letter 
-    one number
-    cotain 8 digit </ion-text>
-  </div>
-  <div>
-  <a [routerLink]="['/reset-password']" style="color:#FFC33F"> Forgot password?</a>
-  </div>
-  <div class="signUpLink">
-    <p>new member<a style="color:#FFC33F" [routerLink]="['/signup']">
-      signUp Now
-    </a></p>
-  </div>
-  </div>
-  <ion-fab vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="login()">
-      <ion-icon name="chevron-forward"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <form [formGroup]="loginForm">
+    <div class="ion-padding">
+      <ion-item>
+        <ion-input formControlName="email" placeholder="email"></ion-input>
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-item>
+      <div
+        *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+      >
+        <ion-text *ngIf="loginForm.get('email')?.hasError('required')">
+          email is required
+        </ion-text>
+        <ion-text *ngIf="loginForm.get('email')?.hasError('pattern')">
+          email should be valid
+        </ion-text>
+      </div>
+      <ion-item>
+        <ion-input
+          type="password"
+          formControlName="password"
+          placeholder="password"
+        ></ion-input>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </ion-item>
+      <div
+        *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+      >
+        <ion-text
+          class="ionic-text-red"
+          *ngIf="loginForm.get('password')?.hasError('required')"
+        >
+          password is required
+        </ion-text>
+        <ion-text *ngIf="loginForm.get('password')?.hasError('pattern')">
+          password must at least have one Character one capital letter one
+          number cotain 8 digit
+        </ion-text>
+      </div>
+      <div class="ion-text-center">
+        <ion-button (click)="login()">Login</ion-button>
+      </div>
+      <div>
+        <a [routerLink]="['/reset-password']" style="color: #ffc33f">
+          Forgot password?</a
+        >
+      </div>
+      <div class="signUpLink">
+        <p>
+          new member<a style="color: #ffc33f" [routerLink]="['/signup']">
+            signUp Now
+          </a>
+        </p>
+      </div>
+    </div>
   </form>
-  
-  </ion-content>
-  
+</ion-content>
